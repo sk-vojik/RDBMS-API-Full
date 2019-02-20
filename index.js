@@ -75,6 +75,37 @@ server.post('/api/cohorts', async (req, res) => {
 });
 
 
+//PUT
+server.put('/api/cohorts/:id', async (req, res) => {
+  try {
+    const count = await db('cohorts').where({ id: req.params.id }).update(req.body);
+    if (count) {
+      const cohort = await db('cohorts')
+        .where({ id: req.params.id })
+        .first();
+      
+      res.status(200).json(cohort);
+    } else {
+      res.status(404).json({ error: "The cohort with the specified ID does not exist." });
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+//DELETE
+server.delete('/api/cohorts/:id', async (req, res) => {
+  try {
+    const count = await db('cohorts').where({ id: req.params.id}).del();
+    if (count) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({ error: "The cohort with the specified ID does not exist." });
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 
 const port = process.env.PORT || 5001;
