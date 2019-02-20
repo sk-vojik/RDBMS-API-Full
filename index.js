@@ -31,6 +31,32 @@ server.get('/api/cohorts', async (req, res) => {
   }
 });
 
+server.get('/api/cohorts/:id', async (req, res) => {
+  try {
+    const cohort = await db('cohorts')
+      .where({ id: req.params.id })
+      .first();
+    res.status(200).json(cohort);
+  } catch (error) {
+    res.status(500).json(errror);
+  }
+});
+
+
+//POST
+
+server.post('/api/cohorts', async (req, res) => {
+  try {
+    const [id] = await db('cohorts').insert(req.body);
+    const cohort = await db('cohorts')
+      .where({ id })
+      .first();
+    res.status(201).json(cohort)
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 
 
 

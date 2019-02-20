@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
       return knex('students').insert([
         {name: 'Scott', cohort_id: "17"},
         {name: 'Jordan', cohort_id: "12"},
-        {name: 'Misha', cohort_id: "18"}
+        {name: 'Misha', cohort_id: "4"}
       ]);
     });
 };

@@ -8,6 +8,7 @@ exports.seed = function(knex, Promise) {
         {name: 'web16 the goat'},
         {name: 'web17 2nd best'},
         {name: 'web18 nubs'},
+        {name: 'cs9'}
       ]);
     });
 };
