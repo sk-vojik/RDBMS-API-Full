@@ -31,6 +31,7 @@ server.get('/api/cohorts', async (req, res) => {
   }
 });
 
+//Get cohort by id
 server.get('/api/cohorts/:id', async (req, res) => {
   try {
     const cohort = await db('cohorts')
@@ -39,6 +40,22 @@ server.get('/api/cohorts/:id', async (req, res) => {
     res.status(200).json(cohort);
   } catch (error) {
     res.status(500).json(errror);
+  }
+});
+
+
+//Get all students for cohort with specified id
+server.get('/api/cohorts/:id/students', async (req, res) => {
+  try {
+    const students = await db('students').where({ cohort_id: req.params.id });
+    if (students) {
+      res.status(200).json(students);
+    }
+    else {
+      res.status(404).json({ error: "We could not find any students with the specified cohort ID"})
+    }
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
